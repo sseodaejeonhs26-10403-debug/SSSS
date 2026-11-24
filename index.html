@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="결제 전 잠깐, 충동구매 대신 진짜 원하는 목표를 향해. 수행의 가상 저금통을 채워보세요.">
+  <title>수행 · 결제 전, 한 번만</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <header><a class="brand" href="./">수행<span>소비를 멈추는 작은 연습</span></a><span class="tag">결제 전 1분</span></header>
+  <main>
+    <section class="intro"><p class="eyebrow">나를 위한 소비 습관</p><h1>장바구니는 잠깐,<br>진짜 원하는 건 더 가까이.</h1><p>오늘의 충동을 내일의 위시리스트로 바꿔보세요.</p></section>
+    <div class="layout">
+      <section class="card basket" aria-labelledby="basket-title">
+        <div class="card-heading"><h2 id="basket-title">지금, 사고 싶은 게 있나요?</h2><span>🛒</span></div>
+        <label class="upload" for="image"><span class="upload-icon">＋</span><strong>장바구니 캡처 올리기</strong><span>JPG · PNG · WEBP / 한 장, 최대 10MB</span><input id="image" type="file" accept="image/png,image/jpeg,image/webp"></label>
+        <img id="preview" alt="업로드한 장바구니 캡처" hidden>
+        <p class="hint">사진 없이 아래에 직접 입력해도 괜찮아요.</p>
+        <form id="analyze-form">
+          <label for="item">사고 싶은 물건</label><input id="item" maxlength="80" placeholder="예: 운동화 또는 장바구니 전체" required>
+          <label for="amount">결제 예정 금액</label><div class="money-input"><input id="amount" type="number" min="1" max="1000000000" step="1" inputmode="numeric" placeholder="0" required><span>원</span></div>
+          <fieldset><legend>어떤 말투가 좋으세요?</legend><div class="flavors"><label><input type="radio" name="flavor" value="mild" checked><span>🌱 순한맛<small>다정한 응원</small></span></label><label><input type="radio" name="flavor" value="spicy"><span>🌶️ 매운맛<small>따끔한 한마디</small></span></label></div></fieldset>
+          <button class="primary" id="analyze" type="submit">결제 전, 한 번 생각하기</button>
+        </form>
+        <p id="status" class="status" role="status" aria-live="polite"></p>
+        <details id="ocr-details" hidden><summary>인식된 글자 확인</summary><pre id="ocr-text"></pre></details>
+        <p class="fine">OCR은 총 결제 금액의 후보를 찾습니다. 분석 전에 금액을 꼭 확인해 주세요.</p>
+      </section>
+      <aside>
+        <section class="card savings"><div class="card-heading"><h2>나의 가상 저금통</h2><span>🐷</span></div><p class="hint">참아낸 순간이 차곡차곡</p><p class="saved-total" id="saved">0<span>원</span></p><p id="count" class="count">아직 첫 번째 연습을 기다리고 있어요</p><div class="divider"></div><div class="card-heading"><h3>진짜 갖고 싶은 것</h3><button id="edit-goal" class="text-button" type="button">목표 설정</button></div><p id="goal-name">나만의 목표를 정해보세요</p><progress id="progress" value="0" max="100" aria-label="목표 달성률"></progress><div class="goal-info"><span id="percent">0%</span><span id="remaining">작은 목표부터 시작해요</span></div><p id="congrats" hidden>🎉 목표 달성! 계획한 소비를 할 준비가 됐어요.</p><p class="fine">실제 돈이 이체되거나 보관되는 저금통은 아니에요.</p></section>
+        <section class="note"><span>💭</span><div><strong>지금 필요한 걸까요?</strong><p>하루 뒤에도 갖고 싶다면,<br>그때 다시 생각해도 늦지 않아요.</p></div></section>
+      </aside>
+    </div>
+    <section id="result" class="card result" hidden aria-labelledby="result-title"><p class="eyebrow">결제 버튼을 누르기 전에</p><h2 id="result-title"></h2><div id="comparisons" class="comparisons"></div><p id="advice"></p><p class="fine">비교 기준: 치킨 25,000원 · 커피 5,000원 · 영화 15,000원 (예시 가격)<br>간단 버전의 조언은 금액과 선택한 말투에 따른 문구입니다.</p><div class="actions"><button class="primary" id="resist">오늘은 참았어요</button><button class="secondary" id="buy">생각해 보고 살래요</button></div></section>
+    <section class="history-section"><div class="card-heading"><h2>나의 작은 선택들</h2><span class="hint">최근 10개</span></div><div id="history"></div></section>
+    <footer>수행 · 오늘 한 번의 멈춤이, 내일의 여유로.<br><small>기록은 이 브라우저에만 저장됩니다. 브라우저 데이터 삭제 시 함께 사라집니다.</small></footer>
+  </main>
+  <dialog id="goal-dialog"><form id="goal-form"><h2>나의 위시리스트</h2><p>정말 갖고 싶은 목표 하나를 정해보세요.</p><label for="goal-input">목표 이름</label><input id="goal-input" maxlength="60" placeholder="예: 여행 가기" required><label for="goal-amount">목표 금액 (원)</label><input id="goal-amount" type="number" min="1" max="1000000000" step="1" required><div class="actions"><button class="secondary" id="cancel-goal" type="button">취소</button><button class="primary" type="submit">저장하기</button></div></form></dialog>
+</body>
+</html>
